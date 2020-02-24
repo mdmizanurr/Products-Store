@@ -11,7 +11,7 @@ namespace ProductsStore.Models
         public DbSet<Product> Products { get; set; }
 
 
-        public ProductDataContext(DbContextOptions<ProductDataContext> opts) 
+        public ProductDataContext( DbContextOptions<ProductDataContext> opts) 
             : base(opts)  { }
 
     }

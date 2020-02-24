@@ -10,17 +10,13 @@ namespace ProductsStore.Controllers
 {
     public class HomeController : Controller
     {
-        private IRepository _repo;
+        private readonly  IRepository _repo;
 
-        public HomeController(IRepository repo)
-        {
-            _repo = repo;
-        }
+        public HomeController(IRepository repo) { _repo = repo;  }
 
         public IActionResult Index()
         {
-           // System.Console.Clear();
-            return View(_repo.Products as IQueryable<Product>);
+            return View(_repo.Products as IEnumerable<Product>);
         }
 
 
@@ -28,6 +24,21 @@ namespace ProductsStore.Controllers
         public IActionResult AddProduct(Product product)
         {
             _repo.AddProduct(product);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult UpdateProduct(long key)
+        {
+            return View(_repo.GetProduct(key));
+        }
+
+
+
+
+        [HttpPost]
+        public IActionResult UpdateProduct(Product product)
+        {
+            _repo.UpdateProduct(product);
             return RedirectToAction(nameof(Index));
         }
 

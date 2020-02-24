@@ -18,16 +18,17 @@ namespace ProductsStore
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        
+
         public Startup(IConfiguration config)
         {
             Configuration = config;
         }
         public void ConfigureServices(IServiceCollection services)
         {
-          
+
             services.AddMvc();
             services.AddTransient<IRepository, DataRepository>();
+
             string conString = Configuration["ConnectionString:DefaultConnection"];
             services.AddDbContext<ProductDataContext>(options => options.UseSqlServer(conString));
         }
@@ -50,11 +51,14 @@ namespace ProductsStore
                 endpoints.MapDefaultControllerRoute();
             });
 
-            //app.UseEndpoints(endpoints => { endpoints.MapControllerRoute(
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
             //    name: "default",
-            //    pattern: "{controller=Home}/{action=Index}/{id?}");});
-            
-            
+            //    pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
+
+
 
             //app.UseEndpoints(endpoints =>
             //{
