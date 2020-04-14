@@ -19,7 +19,6 @@ namespace ProductsStore.Controllers
             return View(_repo.Products as IEnumerable<Product>);
         }
 
-
         [HttpPost]
         public IActionResult AddProduct(Product product)
         {
@@ -32,9 +31,6 @@ namespace ProductsStore.Controllers
             return View(_repo.GetProduct(key));
         }
 
-
-
-
         [HttpPost]
         public IActionResult UpdateProduct(Product product)
         {
@@ -42,5 +38,26 @@ namespace ProductsStore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult UpdateAll()
+        {
+            ViewBag.UpdateAll = true;
+            return View(nameof(Index), _repo.Products);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAll(Product[] products)
+        {
+            _repo.UpdateAll(products);
+            return RedirectToAction(nameof(Index));
+        }
+    
+        [HttpPost]
+        public IActionResult Delete(Product product)
+        {
+            _repo.Delete(product);
+            return RedirectToAction(nameof(Index));
+        }
+    
+    
     }
 }
